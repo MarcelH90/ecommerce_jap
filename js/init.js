@@ -40,7 +40,27 @@ var getJSONData = function(url) {
         });
 }
 
+
+function validarIngreso(correo, pass) {
+
+
+    if ((correo == undefine) || (pass == undefine)) { //COMPRUEBA CAMPOS VACIOS
+        alert("Los campos no pueden quedar vacios");
+        return false;
+    }
+    document.getElementById("btn-envio").innerHTML = '<object href="inicio.html" ></object>';
+
+
+}
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
-document.addEventListener("DOMContentLoaded", function(e) {});
+document.addEventListener("DOMContentLoaded", function(e) {
+    /*var correo = document.getElementById("email")[0].value;
+    var pass = document.getElementsById("password")[0].value;
+    validarIngreso(correo, pass);*/
+
+
+
+});
