@@ -166,3 +166,9 @@ p#rememberbuttom {
 section#index {
     height: 34vh;
 }
+
+div.ingresonull {
+    color: red;
+    text-align: center;
+    font-size: 14px;
+}

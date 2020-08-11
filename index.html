@@ -16,6 +16,7 @@
 </head>
 
 <body>
+
     <nav class="site-header sticky-top py-1 bg-dark">
         <div class="container d-flex flex-column flex-md-row justify-content-between">
 
@@ -31,12 +32,21 @@
             <div class="container">
 
                 <h2 id="saludo" class="ingreso">¡Te damos la bienvenida a tu e-commerce favorito!</h2>
+
+                <div id="email-null" style="visibility: hidden;" class="ingresonull">
+                    Debe ingresar un correo válido.
+                </div>
                 <p id="mail" class="ingreso"> <input id="email" type="email" placeholder="Email address" required style="width:300px;height:30px"> </p>
+
+                <div id="pass-null" style="visibility: hidden;" class="ingresonull">
+                    Debe ingresar una contraseña válida.
+                </div>
                 <p id="pass" class="ingreso"> <input id="password" type="password" placeholder="Password" required style="width:300px;height:30px"> </p>
+
                 <p id="rememberbuttom"> <input type="checkbox" name="recordar"> Recordar </p>
 
                 <div class="row">
-                    <a type="button" class="btn btn-light btn-lg btn-block" id="btn-envio" href="inicio.html">Iniciar sesión</a>
+                    <a type="button" class="btn btn-light btn-lg btn-block" id="btn-envio" href="" onclick=go()>Iniciar sesión</a>
                 </div>
                 <p id="recup_pass" class="ingreso"> <a href="">¿Has olvidado tu contraseña?</a> </p>
                 <p id="registro" class="ingreso"> <a href="">Crear cuenta</a> </p>
