@@ -12,6 +12,8 @@ function validar() {
     if (!sessionStorage.getItem("0") && !sessionStorage.getItem("1")) {
         window.location.replace("login.html");
     }
+    var closeUser = document.getElementById("closeUser");
+    closeUser.append(" " + sessionStorage.getItem("0"));
 }
 validar();
 
@@ -57,5 +59,6 @@ var getJSONData = function(url) {
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e) {
+
 
 });

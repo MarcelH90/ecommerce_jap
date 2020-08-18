@@ -23,7 +23,7 @@
             <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
             <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
             <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
-            <a class="py-2 d-none d-md-inline-block" href="login.html">Cerrar sesión</a>
+            <a id="closeUser" class="py-2 d-none d-md-inline-block" href="login.html">Log out:</a>
         </div>
     </nav>
     <main role="main" class="pb-5">
@@ -32,17 +32,20 @@
             <p class="lead">Verás aquí todas los productos de la categoría.</p>
         </div>
         <div class="container">
+            <label id="searching">
+                <input placeholder="Search" type="search" class="form-control" onkeypress="searching()" onkeyup="searching()"/>
+            </label>
             <div class="row">
                 <div class="col text-right">
                     <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
                         <label class="btn btn-light active" id="sortAsc">
-                          <input type="radio" name="options" autocomplete="off" checked>A-Z
+                          <input type="radio" name="options" autocomplete="off" checked>Min-Max
                       </label>
                         <label class="btn btn-light" id="sortDesc">
-                          <input type="radio" name="options" autocomplete="off">Z-A
+                          <input type="radio" name="options" autocomplete="off">Max-Min
                       </label>
                         <label class="btn btn-light" id="sortByCost">
-                          <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Cost.
+                          <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Rel.
                       </label>
                     </div>
                 </div>
@@ -68,6 +71,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="row">
                 <div class="list-group" id="cat-list-container">

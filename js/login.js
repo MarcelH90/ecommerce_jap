@@ -1,11 +1,9 @@
-sessionStorage.setItem("0", "true");
-sessionStorage.setItem("1", "true");
-
-
 // aqui se valida si ha ingresado el email y el password funciona para cualquiera convinación posible con email y password tenga
 function go() {
     //si están llenos ambos campos da paso al inicio del sitio
     if (!document.getElementById("email").value == "" && !document.getElementById("password").value == "") {
+        sessionStorage.setItem("0", document.getElementById("email").value);
+        sessionStorage.setItem("1", "true");
         let boton = document.getElementById("btn-envio");
         boton.setAttribute('href', 'index.html');
     }

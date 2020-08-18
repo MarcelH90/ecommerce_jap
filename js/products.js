@@ -1,32 +1,33 @@
-const ORDER_ASC_BY_NAME = "AZ";
-const ORDER_DESC_BY_NAME = "ZA";
-const ORDER_BY_PROD_COST = "Cost.";
+const ORDER_ASC_BY_COST = "MinMax";
+const ORDER_DESC_BY_COST = "MaxMin";
+const ORDER_BY_PROD_REL = "Rel.";
 var currentCategoriesArray = [];
 var currentSortCriteria = undefined;
 var minCost = undefined;
 var maxCost = undefined;
 
-function sortCategories(criteria, array) {
-    let result = [];
-    if (criteria === ORDER_ASC_BY_NAME) {
-        result = array.sort(function(a, b) {
-            if (a.name < b.name) { return -1; }
-            if (a.name > b.name) { return 1; }
-            return 0;
-        });
-    } else if (criteria === ORDER_DESC_BY_NAME) {
-        result = array.sort(function(a, b) {
-            if (a.name > b.name) { return -1; }
-            if (a.name < b.name) { return 1; }
-            return 0;
-        });
-    } else if (criteria === ORDER_BY_PROD_COST) {
-        result = array.sort(function(a, b) {
-            let aCost = parseInt(a.cost);
-            let bCost = parseInt(b.cost);
 
-            if (aCost > bCost) { return -1; }
-            if (aCost < bCost) { return 1; }
+function sortProducts(criteria, array) {
+    let result = [];
+    if (criteria === ORDER_ASC_BY_COST) {
+        result = array.sort(function(a, b) {
+            if (a.cost < b.cost) { return -1; }
+            if (a.cost > b.cost) { return 1; }
+            return 0;
+        });
+    } else if (criteria === ORDER_DESC_BY_COST) {
+        result = array.sort(function(a, b) {
+            if (a.cost > b.cost) { return -1; }
+            if (a.cost < b.cost) { return 1; }
+            return 0;
+        });
+    } else if (criteria === ORDER_BY_PROD_REL) {
+        result = array.sort(function(a, b) {
+            let aRel = parseInt(a.soldCount);
+            let bRel = parseInt(b.soldCount);
+
+            if (aRel > bRel) { return -1; }
+            if (aRel < bRel) { return 1; }
             return 0;
         });
     }
@@ -34,7 +35,7 @@ function sortCategories(criteria, array) {
     return result;
 }
 
-function showCategoriesList() {
+function showProductsList() {
 
     let htmlContentToAppend = "";
     for (let i = 0; i < currentCategoriesArray.length; i++) {
@@ -66,39 +67,48 @@ function showCategoriesList() {
     }
 }
 
-function sortAndShowCategories(sortCriteria, categoriesArray) {
+function sortAndShowProducts(sortCriteria, categoriesArray) {
     currentSortCriteria = sortCriteria;
 
     if (categoriesArray != undefined) {
         currentCategoriesArray = categoriesArray;
     }
 
-    currentCategoriesArray = sortCategories(currentSortCriteria, currentCategoriesArray);
+    currentCategoriesArray = sortProducts(currentSortCriteria, currentCategoriesArray);
 
     //Muestro las categorías ordenadas
-    showCategoriesList();
+    showProductsList();
 }
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e) {
+
+
+    //para iniciar el proceso de buscar el producto segun las letras que van colocando en el buscador
+    function searching() {
+        var palabra = document.getElementById("searching");
+        alert(palabra.value);
+    }
+
+
     getJSONData(PRODUCTS_URL).then(function(resultObj) {
         if (resultObj.status === "ok") {
-            sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
+            sortAndShowProducts(ORDER_ASC_BY_COST, resultObj.data);
         }
     });
 
     document.getElementById("sortAsc").addEventListener("click", function() {
-        sortAndShowCategories(ORDER_ASC_BY_NAME);
+        sortAndShowProducts(ORDER_ASC_BY_COST);
     });
 
     document.getElementById("sortDesc").addEventListener("click", function() {
-        sortAndShowCategories(ORDER_DESC_BY_NAME);
+        sortAndShowProducts(ORDER_DESC_BY_COST);
     });
 
     document.getElementById("sortByCost").addEventListener("click", function() {
-        sortAndShowCategories(ORDER_BY_PROD_COST);
+        sortAndShowProducts(ORDER_BY_PROD_REL);
     });
 
     document.getElementById("clearRangeFilter").addEventListener("click", function() {
@@ -108,8 +118,11 @@ document.addEventListener("DOMContentLoaded", function(e) {
         minCost = undefined;
         maxCost = undefined;
 
-        showCategoriesList();
+        showProductsList();
     });
+
+
+
 
     document.getElementById("rangeFilterCost").addEventListener("click", function() {
         //Obtengo el mínimo y máximo de los intervalos para filtrar por costo de producto.
@@ -128,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
             maxCost = undefined;
         }
 
-        showCategoriesList();
+        showProductsList();
     });
+
 });
