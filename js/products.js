@@ -1,10 +1,11 @@
 const ORDER_ASC_BY_COST = "MinMax";
 const ORDER_DESC_BY_COST = "MaxMin";
 const ORDER_BY_PROD_REL = "Rel.";
-var currentCategoriesArray = [];
+var currentProductsArray = [];
 var currentSortCriteria = undefined;
 var minCost = undefined;
 var maxCost = undefined;
+
 
 
 function sortProducts(criteria, array) {
@@ -38,25 +39,25 @@ function sortProducts(criteria, array) {
 function showProductsList() {
 
     let htmlContentToAppend = "";
-    for (let i = 0; i < currentCategoriesArray.length; i++) {
-        let category = currentCategoriesArray[i];
+    for (let i = 0; i < currentProductsArray.length; i++) {
+        let product = currentProductsArray[i];
 
-        if (((minCost == undefined) || (minCost != undefined && parseInt(category.cost) >= minCost)) &&
-            ((maxCost == undefined) || (maxCost != undefined && parseInt(category.cost) <= maxCost))) {
+        if (((minCost == undefined) || (minCost != undefined && parseInt(product.cost) >= minCost)) &&
+            ((maxCost == undefined) || (maxCost != undefined && parseInt(product.cost) <= maxCost))) {
 
             htmlContentToAppend += `
             <a href="product-info.html" class="list-group-item list-group-item-action">
                 <div class="row">
                     <div class="col-3">
-                        <img src="` + category.imgSrc + `" alt="` + category.description + `" class="img-thumbnail">
+                        <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">` + category.name + `</h4>
-                            <small class="text-muted">` + category.soldCount + ` artículos</small>
+                            <h4 class="mb-1">` + product.name + `</h4>
+                            <small class="text-muted">` + product.soldCount + ` Vendidos</small>
                         </div>
-                        <p class="mb-1">` + category.description + `</p>                        
-                        <p class="mb-1">` + category.currency + ": " + category.cost + `</p>                       
+                        <p class="mb-1">` + product.description + `</p>                        
+                        <p class="mb-1">` + product.currency + ": " + product.cost + `</p>                       
                     </div>                    
                 </div>
             </a>
@@ -71,26 +72,57 @@ function sortAndShowProducts(sortCriteria, categoriesArray) {
     currentSortCriteria = sortCriteria;
 
     if (categoriesArray != undefined) {
-        currentCategoriesArray = categoriesArray;
+        currentProductsArray = categoriesArray;
     }
 
-    currentCategoriesArray = sortProducts(currentSortCriteria, currentCategoriesArray);
+    currentProductsArray = sortProducts(currentSortCriteria, currentProductsArray);
 
     //Muestro las categorías ordenadas
     showProductsList();
 }
 
+
+//Funcion para el buscador
+function searching() {
+
+    //tomo el valor que se está introduciendo y lo convierto en mayúscula para que sea más fácil el matcheo
+    var letra = document.getElementById("buscador").value.toUpperCase();
+
+    let htmlContentToAppend = "";
+    for (let i = 0; i < currentProductsArray.length; i++) {
+        let product = currentProductsArray[i];
+        //saco el nombre del auto y lo convierto en mayúscula para que sea más fácil el matcheo
+        var nombre = product.name.toUpperCase();
+        if (nombre.includes(letra)) {
+
+            htmlContentToAppend += `
+            <a href="product-info.html" class="list-group-item list-group-item-action">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
+                    </div>
+                    <div class="col">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h4 class="mb-1">` + product.name + `</h4>
+                            <small class="text-muted">` + product.soldCount + ` Vendidos</small>
+                        </div>
+                        <p class="mb-1">` + product.description + `</p>                        
+                        <p class="mb-1">` + product.currency + ": " + product.cost + `</p>                       
+                    </div>                    
+                </div>
+            </a>
+            `
+        }
+        document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
+    }
+
+}
+
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e) {
-
-
-    //para iniciar el proceso de buscar el producto segun las letras que van colocando en el buscador
-    function searching() {
-        var palabra = document.getElementById("searching");
-        alert(palabra.value);
-    }
 
 
     getJSONData(PRODUCTS_URL).then(function(resultObj) {
@@ -143,5 +175,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
         showProductsList();
     });
+
 
 });

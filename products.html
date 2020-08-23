@@ -23,7 +23,14 @@
             <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
             <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
             <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
-            <a id="closeUser" class="py-2 d-none d-md-inline-block" href="login.html">Log out:</a>
+            <a href="" class="dropdown-toggle py-2 d-none d-md-inline-block" data-toggle="dropdown" id="closeUser"></a>
+            <div class="dropdown-menu site-header sticky-top py-1 bg-dark ">
+                <div class="container  flex-column flex-md-row justify-content-between">
+                    <a style="color:white; transition: ease-in-out color .15s; font-family:Gill Sans / Gill Sans MT, sans-serif;" class="py-2 d-none d-md-inline-block " href="">Cuenta</a>
+                    <div class="dropdown-divider"></div>
+                    <a style="color: white; font-family:Gill Sans / Gill Sans MT, sans-serif; transition: ease-in-out color .15s; " class=" py-2 d-none d-md-inline-block" href="login.html">Salir</a>
+                </div>
+            </div>
         </div>
     </nav>
     <main role="main" class="pb-5">
@@ -32,18 +39,20 @@
             <p class="lead">Verás aquí todas los productos de la categoría.</p>
         </div>
         <div class="container">
-            <label id="searching">
-                <input placeholder="Search" type="search" class="form-control" onkeypress="searching()" onkeyup="searching()"/>
+            <label class="row justify-content-end">
+                <input id="buscador" placeholder="Search" type="text" class="fas fa-search-minus" onkeyup="searching()" />
             </label>
             <div class="row">
                 <div class="col text-right">
                     <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
+
                         <label class="btn btn-light active" id="sortAsc">
-                          <input type="radio" name="options" autocomplete="off" checked>Min-Max
-                      </label>
+                        <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down-alt mr-1"></i>Cost.
+                    </label>
+
                         <label class="btn btn-light" id="sortDesc">
-                          <input type="radio" name="options" autocomplete="off">Max-Min
-                      </label>
+                        <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Cost.
+                    </label>
                         <label class="btn btn-light" id="sortByCost">
                           <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Rel.
                       </label>
