@@ -93,7 +93,9 @@ function searching() {
         let product = currentProductsArray[i];
         //saco el nombre del auto y lo convierto en mayúscula para que sea más fácil el matcheo
         var nombre = product.name.toUpperCase();
-        if (nombre.includes(letra)) {
+        var descrip = product.description.toUpperCase();
+        //verifica si está contenido en el nombre o la descripción 
+        if (nombre.includes(letra) || descrip.includes(letra)) {
 
             htmlContentToAppend += `
             <a href="product-info.html" class="list-group-item list-group-item-action">
@@ -146,7 +148,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
     document.getElementById("clearRangeFilter").addEventListener("click", function() {
         document.getElementById("rangeFilterCostMin").value = "";
         document.getElementById("rangeFilterCostMax").value = "";
-
+        var bus = document.getElementById("buscador");
+        bus.value = "";
         minCost = undefined;
         maxCost = undefined;
 
