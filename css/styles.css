@@ -172,3 +172,13 @@ div.ingresonull {
     text-align: center;
     font-size: 14px;
 }
+
+
+/* Style de product-info*/
+
+
+/*estrellas*/
+
+.checked {
+    color: orange;
+}

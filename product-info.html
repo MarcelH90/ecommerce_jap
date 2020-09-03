@@ -13,6 +13,7 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -68,6 +69,34 @@
             <a type="button" class="btn btn-light btn-lg btn-block" href="products.html">Ver productos</a>
         </div>
     </main>
+
+    <!--Colocación de los comentarios del preoducto-->
+    <div class="container">
+        <h4 id="comentarios">Comentarios</h4>
+        <hr>
+        <div>
+            <div class="list-group" id="listComent">
+            </div>
+        </div>
+        <h4>Agregar Comentario</h4>
+        <hr>
+        <h5>Nuevo</h5>
+        <p> <textarea id="mensaje" name="mensaje" cols="25" rows="2"></textarea> </p>
+        <h5>Puntuación</h5>
+        <p>
+            <select name="select" id="selectStar">
+              <option value="5" selected >5</option>
+              <option value="4">4</option> 
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+        </p>
+        <button onclick="sendMessenge()">Publicar</button>
+
+    </div>
+
+
     <footer class="text-muted">
         <div class="container">
             <p class="float-right">
