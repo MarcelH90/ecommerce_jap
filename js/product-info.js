@@ -39,7 +39,7 @@ var estrellitas = [
 
 
 ];
-
+//muestra la imagenes del producto
 function showImagesGallery(array) {
 
     let htmlContentToAppend = "";
@@ -58,6 +58,9 @@ function showImagesGallery(array) {
     document.getElementById("productImagesGallery").innerHTML = htmlContentToAppend;
 }
 
+
+
+
 //funcion encargada de mostrar los comentarios
 function showListComent(comentArray) {
     var htmlComentToAppend = '';
@@ -71,7 +74,7 @@ function showListComent(comentArray) {
                     
                     <div class="col">
                         
-                        <p class="mb-1">` + comentario.user + "-" + comentario.dateTime + "-" + estrellitas[comentario.score - 1] + `</p>                        
+                        <p class="mb-1"> <strong>` + comentario.user + `</strong> ` + " - " + comentario.dateTime + " - " + estrellitas[comentario.score - 1] + `</p>                        
                         <p class="mb-1">` + comentario.description + `</p>     
                         <hr>                 
                     </div>                                        
@@ -86,7 +89,9 @@ function sendMessenge() {
 
     var mess = document.getElementById("mensaje").value;
     var estrellas = document.getElementById("selectStar").value;
-    var fecha = new Date().toLocaleString().replace(",", "").replace(/:.. /, " ");
+    var fecha = new Date().toISOString().replace(/T/, " ");
+    fecha = fecha.replace(/Z/, "");
+    fecha = fecha.slice(0, -4);
     var usuario = sessionStorage.getItem("0");
 
     mensajes.push({ user: usuario, dateTime: fecha, score: estrellas, description: mess });
@@ -133,4 +138,27 @@ document.addEventListener("DOMContentLoaded", function(e) {
     });
 
 
+});
+
+
+document.addEventListener("DOMContentLoaded", function(e) {
+    //productos relacionado
+    getJSONData(PRODUCTS_URL).then(function(resultObj3) {
+        if (resultObj3.status === "ok") {
+            productos = resultObj3.data;
+            var htmlContentToRelated = "";
+            for (let i = 0; i < product.relatedProducts.length; i++) {
+
+                htmlContentToRelated += `                  
+                <div class="col-lg-3 col-md-4 col-6 ">
+                     <div class="d-block mb-4 h-100  ">
+                        <img class="img-fluid img-thumbnail" src="` + productos[product.relatedProducts[i]].imgSrc + `" alt="">                        
+                        <a href="products.html">` + productos[product.relatedProducts[i]].name + `</a>
+                     </div>
+                    </div>
+                  `
+            }
+            document.getElementById("productrelated").innerHTML = htmlContentToRelated;
+        }
+    });
 });
