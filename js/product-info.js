@@ -42,22 +42,26 @@ var estrellitas = [
 //muestra la imagenes del producto
 function showImagesGallery(array) {
 
-    let htmlContentToAppend = "";
+    //Inicio las variables en la primera posicion para activar esta posicion
+    let htmlContentToAppend = `<div div class="carousel-item active"><img src="` + array[0] + `" class="d-block w-100" alt=""></div>`;
+    let htmlContentSlide = `<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>`;
 
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 1; i < array.length; i++) {
         let imageSrc = array[i];
 
-        htmlContentToAppend += `
-        <div class="col-lg-3 col-md-4 col-6">
-            <div class="d-block mb-4 h-100">
-                <img class="img-fluid img-thumbnail" src="` + imageSrc + `" alt="">
-            </div>
-        </div>
-        `
-    }
-    document.getElementById("productImagesGallery").innerHTML = htmlContentToAppend;
-}
+        htmlContentSlide += `<li data-target="#carouselExampleIndicators" data-slide-to="` + i + `" class="active"></li>`
 
+        htmlContentToAppend += `
+          <div class="carousel-item">
+           <img src="` + imageSrc + `" class="d-block w-100" alt="">
+          </div>    
+       `
+    }
+    document.getElementById("slides").innerHTML = htmlContentSlide;
+    document.getElementById("carrusel").innerHTML = htmlContentToAppend;
+
+
+}
 
 
 
@@ -140,9 +144,9 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
 });
 
-
+//productos relacionado
 document.addEventListener("DOMContentLoaded", function(e) {
-    //productos relacionado
+
     getJSONData(PRODUCTS_URL).then(function(resultObj3) {
         if (resultObj3.status === "ok") {
             productos = resultObj3.data;
