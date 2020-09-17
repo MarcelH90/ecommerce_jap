@@ -92,7 +92,7 @@ function showListComent(comentArray) {
 function sendMessenge() {
 
     var mess = document.getElementById("mensaje").value;
-    var estrellas = document.getElementById("selectStar").value;
+    //var estrellas = document.getElementById("selectStar").value;
     var fecha = new Date().toISOString().replace(/T/, " ");
     fecha = fecha.replace(/Z/, "");
     fecha = fecha.slice(0, -4);
@@ -101,8 +101,31 @@ function sendMessenge() {
     mensajes.push({ user: usuario, dateTime: fecha, score: estrellas, description: mess });
     showListComent(mensajes);
     document.getElementById("mensaje").value = "";
-    document.getElementById("selectStar").value = "5";
+    document.getElementById("selectStar").innerHTML = `
+    <input id="radio1" type="radio" name="estrellas" value="5" onclick="chekStar(5)">
+    <!--
+  --><label for="radio1">★</label>
+    <!--
+  --><input id="radio2" type="radio" name="estrellas" value="4" onclick="chekStar(4)">
+    <!--
+  --><label for="radio2">★</label>
+    <!--
+  --><input id="radio3" type="radio" name="estrellas" value="3" onclick="chekStar(3)">
+    <!--
+  --><label for="radio3">★</label>
+    <!--
+  --><input id="radio4" type="radio" name="estrellas" value="2" onclick="chekStar(2)">
+    <!--
+  --><label for="radio4">★</label>
+    <!--
+  --><input id="radio5" type="radio" name="estrellas" value="1" onclick="chekStar(1)">
+    <!--
+  --><label for="radio5">★</label>`;
 
+}
+
+function chekStar(numstar) {
+    estrellas = numstar;
 }
 
 
@@ -141,12 +164,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
         }
     });
 
-
-});
-
-//productos relacionado
-document.addEventListener("DOMContentLoaded", function(e) {
-
+    //productos relacionado
     getJSONData(PRODUCTS_URL).then(function(resultObj3) {
         if (resultObj3.status === "ok") {
             productos = resultObj3.data;
@@ -165,4 +183,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
             document.getElementById("productrelated").innerHTML = htmlContentToRelated;
         }
     });
+
+
 });

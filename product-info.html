@@ -112,13 +112,29 @@
         <p> <textarea id="mensaje" name="mensaje" cols="50" rows="3"></textarea> </p>
         <p>Puntuación</p>
         <p>
-            <select style="width: 50px; height: 35px;" name="select" id="selectStar">
-              <option value="5" selected >5</option>
-              <option value="4">4</option> 
-              <option value="3">3</option>
-              <option value="2">2</option>
-              <option value="1">1</option>
-            </select>
+            <form>
+                <p class="clasificacion" id="selectStar">
+                    <input id="radio1" type="radio" name="estrellas" value="5" onclick="chekStar(5)">
+                    <!--
+                  --><label for="radio1">★</label>
+                    <!--
+                  --><input id="radio2" type="radio" name="estrellas" value="4" onclick="chekStar(4)">
+                    <!--
+                  --><label for="radio2">★</label>
+                    <!--
+                  --><input id="radio3" type="radio" name="estrellas" value="3" onclick="chekStar(3)">
+                    <!--
+                  --><label for="radio3">★</label>
+                    <!--
+                  --><input id="radio4" type="radio" name="estrellas" value="2" onclick="chekStar(2)">
+                    <!--
+                  --><label for="radio4">★</label>
+                    <!--
+                  --><input id="radio5" type="radio" name="estrellas" value="1" onclick="chekStar(1)">
+                    <!--
+                  --><label for="radio5">★</label>
+                </p>
+            </form>
         </p>
         <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="sendMessenge()">Publicar</button>
     </div>
