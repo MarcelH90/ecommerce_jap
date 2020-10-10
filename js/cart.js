@@ -74,10 +74,15 @@ function showCart(articles) {
         tblBody.appendChild(fila);
         cont++;
     }
-    document.getElementById("productCostText").innerHTML = "UYU " + subtotal;
-    document.getElementById("comissionText").innerHTML = "UYU " + subtotal * porcientoEnvio;
-    document.getElementById("totalCostText").innerHTML = "UYU " + (subtotal + (subtotal * porcientoEnvio));
+    showCostoFinal(subtotal);
 
+}
+
+//para llenar la tabla de costo final 
+function showCostoFinal(subT) {
+    document.getElementById("productCostText").innerHTML = "UYU " + subT;
+    document.getElementById("comissionText").innerHTML = "UYU " + subT * porcientoEnvio;
+    document.getElementById("totalCostText").innerHTML = "UYU " + (subT + (subT * porcientoEnvio));
 }
 
 //para capturar el evento de los input de cantidad
@@ -100,12 +105,9 @@ function updateValue() {
     a = parseInt(a.slice(3));
     var b = document.getElementById("subtotal1").textContent;
     b = parseInt(b.slice(3)) * 40;
-    var sub = a + b;
+    subtotal = a + b;
 
-    var porCiento = sub * porcientoEnvio;
-    document.getElementById("productCostText").innerHTML = "UYU " + sub;
-    document.getElementById("comissionText").innerHTML = "UYU " + porCiento;
-    document.getElementById("totalCostText").innerHTML = "UYU " + (sub + porCiento);
+    showCostoFinal(subtotal);
 }
 
 
@@ -114,8 +116,7 @@ function porcientEnvio(envio) {
     porcientoEnvio = envio;
 
     if (document.getElementById("productCostText").textContent != "UYU 0") {
-        document.getElementById("comissionText").innerHTML = "UYU " + subtotal * porcientoEnvio;
-        document.getElementById("totalCostText").innerHTML = "UYU " + (subtotal + (subtotal * porcientoEnvio));
+        showCostoFinal(subtotal);
     }
 
 
