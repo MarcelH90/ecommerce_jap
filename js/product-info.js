@@ -128,6 +128,7 @@ function sendMessenge() {
     }
 }
 
+//para colocar la cantidad de estrellas marcadas
 function chekStar(numstar) {
     estrellas = numstar;
 }
