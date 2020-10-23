@@ -1,6 +1,10 @@
 var porcientoEnvio = 0.15;
 var articles;
 var subtotal = 0;
+let SUCCESS_MSG = "¡Has comprado con éxito! :)";
+let ERROR_MSG = "Ha habido un error :(, verifica qué pasó.";
+var modPagoTrue = false;
+var primera = true;
 
 
 function showCart(articles) {
@@ -12,15 +16,21 @@ function showCart(articles) {
 
 
         const fila = document.createElement("tr");
+        fila.id = "fila" + cont;
 
-        /*//Colocar x para eliminar el producto
+        //Colocar x para eliminar el producto
         let celdaCancelar = document.createElement("td");
-        var botonCancelar = document.createElement("a");
-        botonCancelar.id="btn"+cont;
-        botonCancelar.text = "X";
-        botonCancelar.onclick = elimCompra;
+        celdaCancelar.class = "product-remove";
+        var botonCancelar = document.createElement("input");
+        botonCancelar.id = "btn" + cont;
+        botonCancelar.value = "X";
+        botonCancelar.type = "button";
+        botonCancelar.addEventListener("click", function() {
+            deleteFila("fila" + cont);
+        }, false);
         celdaCancelar.appendChild(botonCancelar);
-        fila.appendChild(celdaCancelar);*/
+        fila.appendChild(celdaCancelar);
+
 
         //imagen de los productos del carrito
         let celdaImagen = document.createElement("td");
@@ -110,6 +120,43 @@ function updateValue() {
     showCostoFinal(subtotal);
 }
 
+//elminiar la fila
+$(function() {
+    $(document).on('click', 'input[type="button"]', function(event) {
+        let id = this.id;
+        var bTabla = document.getElementById("listaCompra");
+
+        if (primera) {
+
+            var ident = "fila" + id.slice(3);
+            primera = false;
+            var elemento = "subtotal" + id.slice(3);
+            var valor = document.getElementById(elemento).textContent;
+            var cost = parseInt(valor.slice(3));
+            if (valor.slice(0, 3) === "USD") {
+                cost = cost * 40;
+            }
+            subtotal -= cost;
+            showCostoFinal(subtotal);
+            bTabla.deleteRow(id.slice(3));
+        } else {
+            var ident = "fila" + id.slice(3);
+            var elemento = "subtotal" + id.slice(3);
+            var valor = document.getElementById(elemento).textContent;
+            var cost = valor.slice(3);
+            if (valor.slice(0, 3) === "USD") {
+                cost = cost * 40;
+            }
+            subtotal = subtotal - cost;
+            showCostoFinal(subtotal);
+            bTabla.deleteRow(ident);
+        }
+        //articles = articles.splice(id, 1);
+        //showCart(articles);*/
+
+    });
+});
+
 
 //para actualizar los valores dado el tipo de envio
 function porcientEnvio(envio) {
@@ -119,6 +166,176 @@ function porcientEnvio(envio) {
         showCostoFinal(subtotal);
     }
 
+
+}
+
+//Para validar la forma de pago 
+function controlPago() {
+
+    let numTarj = document.getElementById("numTarjeta");
+    let codTarj = document.getElementById("codTarj");
+    let venTarj = document.getElementById("vencimiento");
+
+    let numCuent = document.getElementById("numCuenta");
+
+    //Chequea si paga con tarjeta de crédito
+    if (document.getElementById("checkTCredito").checked == true) {
+
+        //para quitar el marcado del campo de numero cuenta
+
+        numCuent.classList.remove('is-invalid');
+
+
+        let allcheck = false;
+
+        //Quito las clases que marcan como inválidos
+        numTarj.classList.remove('is-invalid');
+        codTarj.classList.remove('is-invalid');
+        venTarj.classList.remove('is-invalid');
+
+
+        //Consulto por si los datos de la tarjeta de crédito están ingresados
+        if (numTarj.value === "") {
+            numTarj.classList.add('is-invalid');
+            allcheck = true;
+        }
+
+        //Consulto por el número de puerta
+        if (codTarj.value === "") {
+            codTarj.classList.add('is-invalid');
+            allcheck = true;
+        }
+
+        //Consulto por la esquina
+        if (venTarj.value === "") {
+            venTarj.classList.add('is-invalid');
+            allcheck = true;
+        }
+
+        if (allcheck == false) {
+            modPagoTrue = true;
+
+            let msgCheck = document.getElementById("formaPago");
+            msgCheck.style.display = 'none';
+            $('#seleccionPago').modal('hide');
+        }
+    }
+
+    //chequea si paga con transferencia
+    if (document.getElementById("checkCuenta").checked == true) {
+
+        //para quitar la marca de los campos de tarjeta de credito
+        numTarj.classList.remove('is-invalid');
+        codTarj.classList.remove('is-invalid');
+        venTarj.classList.remove('is-invalid');
+
+
+        let allcheck = false;
+
+        //Quito las clases que marcan como inválidos
+        numCuent.classList.remove('is-invalid');
+
+
+
+        //Consulto si los datos de la transferencia fueron completados
+        if (numCuent.value === "") {
+            numCuent.classList.add('is-invalid');
+            allcheck = true;
+        }
+
+
+
+        if (allcheck == false) {
+            modPagoTrue = true;
+
+            let msgCheck = document.getElementById("formaPago");
+            msgCheck.style.display = 'none';
+            $('#seleccionPago').modal('hide');
+        }
+    }
+}
+
+//función que realiza la compra validando que todos los campos estén llenos
+function comprar() {
+
+
+    let calleInput = document.getElementById("calle");
+    let puertaInput = document.getElementById("numPuerta");
+    let esquinaInput = document.getElementById("esquina");
+    let chequeoTarjeta = document.getElementById("formaPago");
+    let infoMissing = false;
+
+
+    //Quito las clases que marcan como inválidos
+    calleInput.classList.remove('is-invalid');
+    puertaInput.classList.remove('is-invalid');
+    esquinaInput.classList.remove('is-invalid');
+    chequeoTarjeta.classList.remove('is-invalid');
+
+    //Se realizan los controles necesarios,
+    //En este caso se controla que se haya ingresado calle, número y esquina
+    //Consulto por el nombre de la calle
+    if (calleInput.value === "") {
+        calleInput.classList.add('is-invalid');
+        infoMissing = true;
+    }
+
+    //Consulto por el número de puerta
+    if (puertaInput.value === "") {
+        puertaInput.classList.add('is-invalid');
+        infoMissing = true;
+    }
+
+    //Consulto por la esquina
+    if (esquinaInput.value === "") {
+        esquinaInput.classList.add('is-invalid');
+        infoMissing = true;
+    }
+
+    if (modPagoTrue == false) {
+        chequeoTarjeta.removeAttribute("hidden");
+        infoMissing = true;
+    }
+
+    if (!infoMissing) {
+        //Aquí ingresa si pasó los controles, irá a enviar
+        //la solicitud para crear la publicación.
+
+        getJSONData(CART_BUY_URL).then(function(resultObj) {
+            let msgToShowHTML = document.getElementById("resultSpan");
+            let msgToShow = "";
+
+            //Si la publicación fue exitosa, devolverá mensaje de éxito,
+            //de lo contrario, devolverá mensaje de error.
+            if (resultObj.status === 'ok') {
+                msgToShow = resultObj.data.msg;
+                document.getElementById("alertResult").classList.add('alert-success');
+            } else if (resultObj.status === 'error') {
+                msgToShow = ERROR_MSG;
+                document.getElementById("alertResult").classList.add('alert-danger');
+            }
+
+            msgToShowHTML.innerHTML = msgToShow;
+            //Si el carrito está vacio lo informa
+            if (subtotal == 0) {
+                msgToShowHTML.innerHTML = "El carrito está vacio, no se ha comprado nada";
+            }
+
+            document.getElementById("alertResult").classList.add("show");
+
+            //borrar los elementos del carrito
+            var bTabla = document.getElementById("listaCompra");
+            bTabla.remove();
+
+            //borrar la direccion
+            document.getElementById("calle").value = "";
+            document.getElementById("numPuerta").value = "";
+            document.getElementById("esquina").value = "";
+            //borrar la tabla de costos generales
+            subtotal = 0;
+            showCostoFinal(subtotal);
+        });
+    }
 
 }
 
@@ -135,7 +352,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
             showCart(articles);
         }
     });
-
 
 
 });

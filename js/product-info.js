@@ -106,25 +106,25 @@ function sendMessenge() {
         document.getElementById("mensaje").value = "";
         estrellas = 0;
         document.getElementById("selectStar").innerHTML = `
-            <input id="radio1" type="radio" name="estrellas" value="5" onclick="chekStar(5)">
+            <input class="selectStar" id="radio1" type="radio" name="estrellas" value="5" onclick="chekStar(5)">
             <!--
-            --><label for="radio1">★</label>
+            --><label class="selectStar" for="radio1">★</label>
             <!--
-            --><input id="radio2" type="radio" name="estrellas" value="4" onclick="chekStar(4)">
+            --><input class="selectStar" id="radio2" type="radio" name="estrellas" value="4" onclick="chekStar(4)">
             <!--
-            --><label for="radio2">★</label>
+            --><label class="selectStar" for="radio2">★</label>
             <!--
-            --><input id="radio3" type="radio" name="estrellas" value="3" onclick="chekStar(3)">
+            --><input class="selectStar" id="radio3" type="radio" name="estrellas" value="3" onclick="chekStar(3)">
             <!--
-            --><label for="radio3">★</label>
+            --><label class="selectStar" for="radio3">★</label>
             <!--
-            --><input id="radio4" type="radio" name="estrellas" value="2" onclick="chekStar(2)">
+            --><input class="selectStar" id="radio4" type="radio" name="estrellas" value="2" onclick="chekStar(2)">
             <!--
-            --><label for="radio4">★</label>
+            --><label class="selectStar" for="radio4">★</label>
             <!--
-            --><input id="radio5" type="radio" name="estrellas" value="1" onclick="chekStar(1)">
+            --><input class="selectStar" id="radio5" type="radio" name="estrellas" value="1" onclick="chekStar(1)">
             <!--
-            --><label for="radio5">★</label>`;
+            --><label class="selectStar" for="radio5">★</label>`;
     }
 }
 

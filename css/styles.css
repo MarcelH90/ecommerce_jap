@@ -172,9 +172,6 @@
         text-align: center;
         font-size: 14px;
     }
-    /*carrusel*/
-    
-    #carouselExampleIndicators {}
     /*estrellas*/
     
     .checked {
@@ -195,11 +192,11 @@
         font-size: 20px;
     }
     
-    input[type="radio"] {
+    input.selectStar {
         display: none;
     }
     
-    label {
+    label.selectStar {
         color: black;
     }
     
@@ -208,12 +205,12 @@
         unicode-bidi: bidi-override;
     }
     
-    label:hover,
-    label:hover~label {
+    label:hover.selectStar,
+    label:hover~label.selectStar {
         color: orange;
     }
     
-    input[type="radio"]:checked~label {
+    input:checked~label.selectStar {
         color: orange;
     }
     /*Styles Cart*/
@@ -292,4 +289,9 @@
         display: table-row-group;
         vertical-align: middle;
         border-color: inherit;
+    }
+    /*Style para Modal*/
+    
+    label.labelModal {
+        font-size: 12px;
     }
