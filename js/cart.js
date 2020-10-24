@@ -151,8 +151,7 @@ $(function() {
             showCostoFinal(subtotal);
             bTabla.deleteRow(ident);
         }
-        //articles = articles.splice(id, 1);
-        //showCart(articles);*/
+
 
     });
 });
