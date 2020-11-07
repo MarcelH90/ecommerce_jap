@@ -41,27 +41,33 @@ function showProductsList() {
     let htmlContentToAppend = "";
     for (let i = 0; i < currentProductsArray.length; i++) {
         let product = currentProductsArray[i];
+        //prueba
+        let product2 = currentProductsArray[i + 1];
 
         if (((minCost == undefined) || (minCost != undefined && parseInt(product.cost) >= minCost)) &&
             ((maxCost == undefined) || (maxCost != undefined && parseInt(product.cost) <= maxCost))) {
 
+
             htmlContentToAppend += `
-            <a href="product-info.html" class="list-group-item list-group-item-action">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
-                    </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">` + product.name + `</h4>
-                            <small class="text-muted">` + product.soldCount + ` Vendidos</small>
-                        </div>
-                        <p class="mb-1">` + product.description + `</p>                        
-                        <p class="mb-1">` + product.currency + ": " + product.cost + `</p>                       
-                    </div>                    
-                </div>
-            </a>
-            `
+                
+                   <div class=" col-sm" >
+                        <a href="product-info.html" class="list-group-item list-group-item-action">                
+                            <div class="row">                        
+                                <div >
+                                    <img class="autos" src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail" >
+                                </div>
+                                <div class="col">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h4 class="mb-1" >` + product.name + `</h4>
+                                        <small class="text-muted">` + product.soldCount + ` Vendidos</small>
+                                    </div>
+                                    <p class="mb-1" >` + product.description + `</p>                        
+                                    <p class="mb-1" >` + product.currency + ": " + product.cost + `</p>                       
+                                </div>                       
+                            </div>
+                        </a> 
+                   </div>`
+
         }
 
         document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
@@ -97,23 +103,33 @@ function searching() {
         //verifica si está contenido en el nombre o la descripción 
         if (nombre.includes(letra) || descrip.includes(letra)) {
 
-            htmlContentToAppend += `
-            <a href="product-info.html" class="list-group-item list-group-item-action">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
-                    </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">` + product.name + `</h4>
-                            <small class="text-muted">` + product.soldCount + ` Vendidos</small>
-                        </div>
-                        <p class="mb-1">` + product.description + `</p>                        
-                        <p class="mb-1">` + product.currency + ": " + product.cost + `</p>                       
-                    </div>                    
-                </div>
-            </a>
-            `
+            htmlContentToAppend += ` <
+                    a href = "product-info.html"
+                class = "list-group-item list-group-item-action" >
+                    <
+                    div class = "row" >
+                    <
+                    div class = "col-3" >
+                    <
+                    img src = "` + product.imgSrc + `"
+                alt = "` + product.description + `"
+                class = "img-thumbnail" >
+                    <
+                    /div> <
+                    div class = "col" >
+                    <
+                    div class = "d-flex w-100 justify-content-between" >
+                    <
+                    h4 class = "mb-1" > ` + product.name + ` < /h4> <
+                    small class = "text-muted" > ` + product.soldCount + `
+                Vendidos < /small> <
+                    /div> <
+                    p class = "mb-1" > ` + product.description + ` < /p>                         <
+                    p class = "mb-1" > ` + product.currency + ": " + product.cost + ` < /p>                        <
+                    /div>                     <
+                    /div> <
+                    /a>
+                `
         }
         document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
     }

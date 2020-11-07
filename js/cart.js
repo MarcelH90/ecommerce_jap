@@ -178,7 +178,7 @@ function controlPago() {
     let numCuent = document.getElementById("numCuenta");
 
     //Chequea si paga con tarjeta de crédito
-    if (document.getElementById("checkTCredito").checked == true) {
+    if (document.getElementById("checkTCredito").checked) {
 
         //para quitar el marcado del campo de numero cuenta
 
@@ -221,7 +221,7 @@ function controlPago() {
     }
 
     //chequea si paga con transferencia
-    if (document.getElementById("checkCuenta").checked == true) {
+    if (document.getElementById("checkCuenta").checked) {
 
         //para quitar la marca de los campos de tarjeta de credito
         numTarj.classList.remove('is-invalid');
@@ -249,6 +249,7 @@ function controlPago() {
 
             let msgCheck = document.getElementById("formaPago");
             msgCheck.style.display = 'none';
+            //cerrar el modal
             $('#seleccionPago').modal('hide');
         }
     }

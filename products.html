@@ -4,8 +4,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <title>eMercado - Todo lo que busques está aquí</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
@@ -13,10 +13,12 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+
+
 </head>
 
 <body>
-    <nav class="site-header sticky-top py-1 bg-dark">
+    <nav class="site-header sticky-top py-1 bg-dark" id="menu">
         <div class="container d-flex flex-column flex-md-row justify-content-between">
             <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
             <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
@@ -27,7 +29,7 @@
                 <div class="container  flex-column flex-md-row justify-content-between">
                     <a style="color:white; transition: ease-in-out color .15s; font-family:Gill Sans / Gill Sans MT, sans-serif;" class="py-2 d-none d-md-inline-block " href="cart.html">Mi Carrito</a>
                     <div class="dropdown-divider"></div>
-                    <a style="color:white; transition: ease-in-out color .15s; font-family:Gill Sans / Gill Sans MT, sans-serif;" class="py-2 d-none d-md-inline-block " href="">Mi Perfil</a>
+                    <a style="color:white; transition: ease-in-out color .15s; font-family:Gill Sans / Gill Sans MT, sans-serif;" class="py-2 d-none d-md-inline-block " href="my-profile.html">Mi Perfil</a>
                     <div class="dropdown-divider"></div>
                     <a style="color: white; font-family:Gill Sans / Gill Sans MT, sans-serif; transition: ease-in-out color .15s; " class=" py-2 d-none d-md-inline-block" href="login.html">Cerrar Sesión</a>
                 </div>
@@ -40,9 +42,11 @@
             <p class="lead">Verás aquí todas los productos de la categoría.</p>
         </div>
         <div class="container">
+            <!--Buscador-->
             <label class="row justify-content-end">
                <input id="buscador" placeholder="Search" type="text" class="fas fa-search-minus" onkeyup="searching()" />
             </label>
+            <!--Ordenador asc/dsc-->
             <div class="row">
                 <div class="col text-right">
                     <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
@@ -61,6 +65,7 @@
                     </div>
                 </div>
             </div>
+            <!--Filtro por rango de precio-->
             <div class="row justify-content-end">
                 <div class="col-md-6"></div>
                 <div class="col-md-6 col-sm-12 mb-1 container">
@@ -84,8 +89,8 @@
                 </div>
 
             </div>
-            <div class="row">
-                <div class="list-group" id="cat-list-container">
+            <div>
+                <div class="row" id="cat-list-container">
                 </div>
             </div>
         </div>
